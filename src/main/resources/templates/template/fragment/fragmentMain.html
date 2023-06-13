@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -13,7 +13,6 @@
 <h2>부분 포함 단순 표현식</h2>
 <div th:replace="template/fragment/footer :: copy"></div>
 <h1>파라미터 사용</h1>
-<div th:replace="~{template/fragment/footer :: copyParam ('데이터1', '데이터
-2')}"></div>
+<div th:replace="~{template/fragment/footer :: copyParam ('데이터1', '데이터2')}"></div>
 </body>
 </html>

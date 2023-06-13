@@ -120,7 +120,7 @@ public class BasicController {
      * QueryParameter
      * @{/hello(param1=${param1}, param2=${param2})}
      * /hello?param1=data1&param2=data2
-     *
+     * remember the () and the {}
      * variables in () will be regarded as a query parameter
      *
      * PathVariable
@@ -163,7 +163,7 @@ public class BasicController {
      * comparators (comparison operators) -> beware of HTML entity usage
      * > (gt), < (lt), >= (ge), <= (le), ! (not), == (eq), != (neq, ne)
      * conditionals : similar to java
-     * Elvis operations : simplified conditionals
+     * Elvis operations (?:) : simplified conditionals
      * No-Operation: if _ , then will act as if thymeleaf not working,
      * allows for base HTML to be used
      */
@@ -186,6 +186,11 @@ public class BasicController {
      * addition of attribute
      * th:attrappend : 속성 값의 뒤에 값을 추가한다.
      * th:attrprepend : 속성 값의 앞에 값을 추가한다.
+     *
+     * ensure that there exists a space before and after respectively for the usage of
+     * attrappend and attrprepend as it will literally do a string addition with exsiting
+     * HTML attribute
+     * or, if u do not want to
      * th:classappend : class 속성에 자연스럽게 추가한다.
      *
      * checked
@@ -256,7 +261,7 @@ public class BasicController {
      * 1. standard HTML comment
      *
      * 2. thymeleaf parser comment
-     * thymeleaf removes this upon render
+     * thymeleaf removes this upon render, shows up in HTML view
      *
      * 3. thymeleaf prototype comment
      * similar to HTML comment(is actually one) , thus does not render on HTML view
@@ -279,6 +284,26 @@ public class BasicController {
         addUsers(model);
         return "basic/block";
     }
+
+    /**
+     * th:inline = javascript automates the type transcription
+     * from java to javascript
+     *
+     * i.e
+     * UserA -> "UserA"
+     * "'kakaotalk'" -> "/'kakaotalk/'"
+     *
+     * objects
+     * object.toString() -> represents as Json
+     *
+     * javascript natural template
+     * replaces value of variable with of that inside the /* ... .(asterisk->*)/
+     *
+     * javascript each
+     * [#th:each ...
+     * [/]
+     * this is not the JS for loop but the thymeleaf each
+     */
 
     @GetMapping("/javascript")
     public String javascript(Model model) {
