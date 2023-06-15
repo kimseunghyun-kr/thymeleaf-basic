@@ -28,18 +28,45 @@ public class BasicController {
         return "basic/text-basic";
     }
 
-//    escaping characters are used to transform <> and other special characters
-//    that are reserved for HTML into a different character that can be represented
-//    as the same upon the finished HTML. i.e) ">" --> &gt
-//    this is typically recommended to be used as the unescaped version can lead to
-//    possible malicious inputs by the users being allowed to generate unwanted side-effects
-//    on the server side render
+    /**
+    escaping characters are used to transform <> and other special characters
+    that are reserved for HTML into a different character that can be represented
+    as the same upon the finished HTML. i.e) ">" --> &gt
+    this is typically recommended to be used as the unescaped version can lead to
+    possible malicious inputs by the users being allowed to generate unwanted side-effects
+    on the server side render
+     */
     @GetMapping("/text-unescaped")
     public String textUnescaped(Model model) {
         model.addAttribute("data", "Hello <b>Spring!</b>");
         return "basic/text-unescaped";
     }
 
+    /**
+     * SpringEL notations
+     *
+     * Objects
+     *
+     * user.username : user.getUsername()
+     * user['username'] : user.getUsername()
+     * user.getUsername() : "
+     *
+     * List
+     * users[0].username : "
+     * list.get(0).getUsername() : "
+     * users[0]['username'] : "
+     * users[0].getUsername() : "
+     *
+     * Map
+     * userMap['userA'].username : "
+     * map.get("userA").getUsername() : "
+     * userMap['userA']['username'] : "
+     * userMap['userA'].getUsername() : "
+     *
+     * regional variable declaration thymeleaf
+     * th:with allows the creation of a regional variable whose scope is within the same tag
+     * 있다.
+     */
     @GetMapping("/variable")
     public String variable(Model model){
 
@@ -65,10 +92,10 @@ public class BasicController {
      *
      * thymeleaf used to provide these basic Thymeleaf objects
      * <-- as of spring boot 3.0 the following are discontinued -->
-     * ${#request} - 스프링 부트 3.0부터 제공하지 않는다.
-     * ${#response} - 스프링 부트 3.0부터 제공하지 않는다.
-     * ${#session} - 스프링 부트 3.0부터 제공하지 않는다.
-     * ${#servletContext} - 스프링 부트 3.0부터 제공하지 않는다.
+     * ${#request} - deprecated from spring boot v3.0
+     * ${#response} - deprecated from spring boot v3.0
+     * ${#session} - deprecated from spring boot v3.0
+     * ${#servletContext} - deprecated from spring boot v3.0
      *
      * <-- this is still provided -->
      * ${#locale}
@@ -88,7 +115,6 @@ public class BasicController {
     }
 
     /**
-     *
      * to use Java 8 dateTime objects , thymeleaf needs "thymeleaf-extras-java8time"
      * as an extra dependency
      * which Spring boot automatically resolves
@@ -99,7 +125,8 @@ public class BasicController {
      * https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#appendix-b-expressionutility-objects
      *
      *
-     * refer to the above links should the need arises
+     * refer to the above links should the need arises, datetime added separately as it was not found
+     * in the manual pages
      */
     @GetMapping("/date")
     public String date(Model model) {
